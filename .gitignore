@@ -8,3 +8,4 @@
 /EncryptionUnitTest/bin
 /EncryptionUnitTest/obj
 /.vs/slnx.sqlite
+/.vs/aead-aes/DesignTimeBuild/.dtbcache.v2
