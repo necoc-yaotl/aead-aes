@@ -206,6 +206,8 @@ namespace AeadAes
             {
                 throw new Exception("HMAC could not be calculated.");
             }
+
+            hmac.Dispose();
         }
 
         public static void DecryptStream(Stream inStream, Stream outStream,
@@ -352,6 +354,7 @@ namespace AeadAes
                 throw new Exception("Authentication tag does match.");
             }
 
+            hmac.Dispose();
 
             aes.Key = encKey;
             Array.Clear(encKey, 0, encKey.Length);
@@ -363,7 +366,6 @@ namespace AeadAes
 
             using ICryptoTransform transform = aes.CreateDecryptor();
 
-            count = 0;
             offset = (int)initalPos + (aes.BlockSize / 8);
             bytesRead = 0;
             cLen -= (aes.BlockSize / 8);
@@ -377,7 +379,6 @@ namespace AeadAes
                     if (bytesRead > cLen)
                     {
                         count = count - (int)(bytesRead - cLen);
-                        endOfRead = true;
                     }
                     offset += count;
 
